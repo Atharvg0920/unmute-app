@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Inbox, CheckCircle2, Send, Wand2, Loader2, BarChart3 } from "lucide-react";
 import AmbientBg from "../components/AmbientBg";
+import Spotlight from "../components/Spotlight";
 import TopBar from "../components/TopBar";
 import api from "../lib/api";
 import { useAuth } from "../lib/auth";
@@ -118,6 +119,7 @@ export default function TeacherInbox() {
     return (
         <div className="relative min-h-screen pb-24">
             <AmbientBg />
+            <Spotlight color="rgba(59,130,246,0.16)" size={500} />
             <TopBar title="Teacher" />
 
             <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-6 grid gap-6 lg:grid-cols-[1fr_20rem]">

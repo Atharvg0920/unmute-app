@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Flame, Sparkles, Clock, Filter } from "lucide-react";
 import AmbientBg from "../components/AmbientBg";
+import Spotlight from "../components/Spotlight";
 import TopBar from "../components/TopBar";
 import BottomNav from "../components/BottomNav";
 import QuestionCard from "../components/QuestionCard";
@@ -43,6 +44,7 @@ export default function Feed() {
     return (
         <div className="relative min-h-screen pb-32">
             <AmbientBg />
+            <Spotlight color="rgba(139,92,246,0.18)" size={500} />
             <TopBar title="Live feed" />
 
             <main className="max-w-3xl mx-auto px-4 sm:px-6 pt-6">
