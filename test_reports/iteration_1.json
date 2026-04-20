@@ -1,0 +1,37 @@
+{
+  "summary": "End-to-end testing of Unmute platform. Backend: 28 pytest tests pass after fixing one bug in /api/questions/{id}/answer that returned Mongo ObjectId. Frontend: landing, student auth+feed+ask+AI+mine+profile+badges, teacher auth+inbox+reply+heatmap all verified. Role guards and protected routes work correctly.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/questions/{id}/answer", "issue": "Response included Mongo _id (ObjectId) causing 500 serialization error. Fixed by popping _id from ans dict after insert."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Feed filters", "issues": ["Subject filter uses native <select> dropdown instead of shadcn Select for visual consistency with the rest of the themed UI."]},
+      {"screen": "TeacherInbox ReplyBox", "issues": ["`suggest()` helper calls /ai/auto-answer with text: '' (empty). Currently unused (no button renders it) but dead/misleading code; should pass question body if surfaced."]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/test_unmute_backend.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "Optional: replace native <select> in Feed subject filter with shadcn Select for UI consistency.",
+    "Optional: remove or fix the unused suggest() handler in TeacherInbox.jsx ReplyBox (currently posts empty text to /ai/auto-answer).",
+    "Observation: backend get_current_user prefers cookie over Bearer. Works for the React SPA (axios doesn't send cookies cross-origin by default), but consider flipping priority so explicit Authorization header wins."
+  ],
+  "critical_code_review_comments": [
+    "server.py answer_question: insert_one mutates dict with _id; fixed by popping _id before returning.",
+    "server.py: get_current_user reads cookie before Bearer header. When both are present, header is ignored. Not breaking in this app but non-obvious.",
+    "TeacherInbox.jsx: suggest() posts empty text to /ai/auto-answer; unused handler.",
+    "Feed subject filter uses native HTML <select> which looks inconsistent against themed glass UI."
+  ],
+  "updated_files": ["/app/backend/server.py", "/app/backend/tests/test_unmute_backend.py", "/app/backend/tests/conftest.py"],
+  "success_rate": {"backend": "100% (28/28)", "frontend": "100% of reviewed flows"},
+  "test_credentials": "student.demo@unmute.edu / Student@123 ; priya.sharma@unmute.edu / Teacher@123 ; arjun.mehta@unmute.edu / Teacher@123 ; ritika.verma@unmute.edu / Teacher@123",
+  "seed_data_creation": "Several TEST_-prefixed questions and answers created during testing; visible in feed/mine/inbox. Safe to keep or cleanup.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Pytest suite /app/backend/tests/test_unmute_backend.py uses a NoCookieSession so Bearer tokens take precedence (backend prefers cookie otherwise). All 28 tests pass. Teacher inbox textareas only render when status=open (answered ones show 'Your reply' box instead). Playwright selectors for key flows: login-email/login-password/login-submit, ask-input/ask-subject/ask-submit, btn-rewrite/btn-similar, tab-open/tab-answered/tab-all, teacher-question-{id}, reply-input-{qid}/reply-send-{qid}, bottom-nav (student only).",
+  "rca of the issue": "Bug: POST /api/questions/{id}/answer returned 500. RCA: pymongo's insert_one mutates the input dict by attaching a BSON ObjectId as _id; the route then returned that dict via FastAPI's jsonable_encoder, which cannot serialize ObjectId -> 500. Fix: ans.pop('_id', None) immediately after insert_one before returning."
+}

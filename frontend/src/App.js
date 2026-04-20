@@ -1,54 +1,57 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import React from "react";
+import "./App.css";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import { AuthProvider, useAuth } from "./lib/auth";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Feed from "./pages/Feed";
+import Ask from "./pages/Ask";
+import MyQuestions from "./pages/MyQuestions";
+import TeacherInbox from "./pages/TeacherInbox";
+import QuestionDetail from "./pages/QuestionDetail";
+import Profile from "./pages/Profile";
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
-
-function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+function Protected({ children, role }) {
+    const { user, loading } = useAuth();
+    if (loading) return <div className="min-h-screen flex items-center justify-center text-white/60">Loading…</div>;
+    if (!user) return <Navigate to="/login" replace />;
+    if (role && user.role !== role) return <Navigate to="/feed" replace />;
+    return children;
 }
 
-export default App;
+function Shell() {
+    return (
+        <AnimatePresence mode="wait">
+            <Routes>
+                <Route path="/" element={<Landing />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+
+                <Route path="/feed" element={<Feed />} />
+                <Route path="/q/:id" element={<QuestionDetail />} />
+
+                <Route path="/ask" element={<Protected role="student"><Ask /></Protected>} />
+                <Route path="/mine" element={<Protected role="student"><MyQuestions /></Protected>} />
+                <Route path="/profile" element={<Protected><Profile /></Protected>} />
+                <Route path="/teacher" element={<Protected role="teacher"><TeacherInbox /></Protected>} />
+
+                <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+        </AnimatePresence>
+    );
+}
+
+export default function App() {
+    return (
+        <div className="App">
+            <AuthProvider>
+                <BrowserRouter>
+                    <Shell />
+                </BrowserRouter>
+            </AuthProvider>
+        </div>
+    );
+}
