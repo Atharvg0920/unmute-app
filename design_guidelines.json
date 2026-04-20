@@ -1,0 +1,111 @@
+{
+  "theme": "dark",
+  "archetype": "Soft Midnight (Adapted Archetype 5 & 3 for Gen-Z Dark Mode)",
+  "design_philosophy": "A safe, judgment-free zone that feels like a premium mix of Instagram's clean UI, Reddit's discussion threads, and Discord's real-time interaction. Emphasizes psychological safety through deep, calming dark tones, soft glassmorphism, and playful micro-interactions.",
+  "colors": {
+    "background": "#09090b",
+    "surface_base": "#121217",
+    "surface_glass": "rgba(255, 255, 255, 0.03)",
+    "surface_glass_elevated": "rgba(255, 255, 255, 0.06)",
+    "primary_gradient": "linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%)",
+    "primary_accent": "#8B5CF6",
+    "secondary_accent": "#3B82F6",
+    "text_primary": "rgba(255, 255, 255, 0.95)",
+    "text_secondary": "rgba(255, 255, 255, 0.60)",
+    "border_subtle": "rgba(255, 255, 255, 0.08)",
+    "border_highlight": "rgba(255, 255, 255, 0.15)",
+    "status_success": "#10B981",
+    "status_warning": "#F59E0B",
+    "status_danger": "#EF4444"
+  },
+  "typography": {
+    "font_family_heading": "'Outfit', 'Cabinet Grotesk', sans-serif",
+    "font_family_body": "'Plus Jakarta Sans', 'Inter', sans-serif",
+    "scales": {
+      "h1": "text-4xl sm:text-5xl font-bold tracking-tight text-white",
+      "h2": "text-2xl sm:text-3xl font-semibold tracking-tight text-white",
+      "h3": "text-xl sm:text-2xl font-medium text-white/90",
+      "body": "text-base leading-relaxed text-white/80",
+      "small": "text-sm text-white/60 tracking-wide",
+      "overline": "text-xs font-bold uppercase tracking-[0.2em] text-white/50"
+    }
+  },
+  "layout_and_spacing": {
+    "strategy": "Mobile-first, constrained width. The app should feel intimate, not sprawling.",
+    "container_mobile": "w-full mx-auto px-4 sm:max-w-md lg:max-w-lg",
+    "container_dashboard": "w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "spacing_scale": {
+      "card_padding": "p-6 sm:p-8",
+      "section_gap": "gap-8 sm:gap-12"
+    },
+    "radii": {
+      "card": "rounded-3xl",
+      "button": "rounded-full",
+      "input": "rounded-2xl"
+    }
+  },
+  "surfaces_and_styles": {
+    "glassmorphism_card": "bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-3xl",
+    "neumorphism_hybrid": "bg-[#0A0A0F] border border-white/5 shadow-[inset_2px_2px_4px_rgba(255,255,255,0.03),4px_4px_12px_rgba(0,0,0,0.5)] rounded-3xl",
+    "floating_input": "fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] sm:max-w-md bg-white/[0.08] backdrop-blur-xl border border-white/10 rounded-full shadow-2xl p-2 z-50",
+    "ambient_glow": "absolute -z-10 w-64 h-64 bg-violet-500/20 blur-[100px] rounded-full pointer-events-none"
+  },
+  "motion_and_interactions": {
+    "page_transition": "initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}",
+    "card_hover": "whileHover={{ y: -4, scale: 1.01, borderColor: 'rgba(255,255,255,0.15)' }} transition={{ type: 'spring', stiffness: 400, damping: 25 }}",
+    "button_tap": "whileTap={{ scale: 0.95 }}",
+    "upvote_trigger": "initial={{ scale: 1 }} animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 0.4, type: 'spring', bounce: 0.6 }}",
+    "typing_indicator": "animate={{ y: [0, -5, 0], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1, staggerChildren: 0.2 }}"
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-gradient-to-r from-violet-500 to-blue-500 text-white font-medium rounded-full px-6 py-3 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all",
+      "secondary": "bg-white/5 hover:bg-white/10 text-white backdrop-blur-md rounded-full px-6 py-3 transition-colors border border-white/10",
+      "icon_action": "p-3 rounded-full bg-transparent hover:bg-white/10 text-white/70 hover:text-white transition-colors"
+    },
+    "inputs": {
+      "standard": "w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-violet-500/50 transition-all",
+      "chat": "bg-transparent w-full text-white px-4 py-2 focus:outline-none placeholder:text-white/40"
+    },
+    "tags": "bg-white/10 text-white/80 text-xs px-3 py-1.5 rounded-full border border-white/5 font-medium tracking-wide"
+  },
+  "media": {
+    "icons_library": "lucide-react",
+    "visual_effects": "Since actual 3D generation is skipped, mimic 3D depth by combining lucide-react icons with drop shadows: `drop-shadow-[0_0_12px_rgba(139,92,246,0.6)] text-violet-400`",
+    "image_urls": [
+      {
+        "url": "https://images.unsplash.com/photo-1760574740388-870d93c658a6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHwxfHxnZW4lMjB6JTIwc3R1ZGVudCUyMHBvcnRyYWl0JTIwZGFyayUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzc2NjY4OTU0fDA&ixlib=rb-4.1.0&q=85",
+        "category": "student_avatar_1",
+        "description": "Gen-Z student avatar (for profile/dashboard)"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1758534063829-a72058381e21?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHwyfHxnZW4lMjB6JTIwc3R1ZGVudCUyMHBvcnRyYWl0JTIwZGFyayUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzc2NjY4OTU0fDA&ixlib=rb-4.1.0&q=85",
+        "category": "student_avatar_2",
+        "description": "Gen-Z student avatar alternative"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1764545973653-94c40d993495?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwyfHxmcmllbmRseSUyMHRlYWNoZXIlMjBwb3J0cmFpdCUyMGRhcmslMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3NjY2ODk1M3ww&ixlib=rb-4.1.0&q=85",
+        "category": "teacher_avatar_1",
+        "description": "Friendly teacher avatar for dashboard and chat responses"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1758685848001-0396a85ba84f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwxfHxmcmllbmRseSUyMHRlYWNoZXIlMjBwb3J0cmFpdCUyMGRhcmslMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3NjY2ODk1M3ww&ixlib=rb-4.1.0&q=85",
+        "category": "teacher_avatar_2",
+        "description": "Friendly teacher avatar alternative"
+      }
+    ]
+  },
+  "testing_and_accessibility": {
+    "data_testids": "CRITICAL: Every interactive element (buttons, links, inputs, tabs) MUST have a `data-testid` attribute in kebab-case. Examples: `data-testid=\"submit-question-btn\"`, `data-testid=\"upvote-icon-btn\"`",
+    "focus_states": "All focusable elements must have explicit focus states: `focus:ring-2 focus:ring-violet-500/50 focus:outline-none`",
+    "contrast": "Ensure text over glassmorphism panels maintains APCA/WCAG AA contrast. Use text-shadow if necessary."
+  },
+  "instructions_to_main_agent": [
+    "Build 'Unmute' as a mobile-first, highly polished dark mode application.",
+    "Do NOT use standard Shadcn flat cards. Everything must feel layered: use `surfaces_and_styles.glassmorphism_card` for main content blocks.",
+    "Implement the 'Ask Question' input as a sticky, floating element pinned to the bottom of the screen (`fixed bottom-6 left-1/2 -translate-x-1/2`).",
+    "Use Framer Motion for ALL major state changes: entering the live feed, upvoting a question, and submitting a question.",
+    "Place ambient glowing orbs (`surfaces_and_styles.ambient_glow`) in the absolute background to avoid a flat 'black' look.",
+    "Ensure `data-testid` is added to all interactive elements for robust testing."
+  ]
+}
